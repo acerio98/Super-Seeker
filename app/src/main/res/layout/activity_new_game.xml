@@ -1,0 +1,54 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools" android:layout_width="match_parent"
+    android:layout_height="match_parent" android:background="#ffffffff"
+    tools:context="com.example.superseeker.NewGameActivity"
+    android:orientation="vertical">
+
+    <!-- The primary full-screen view. This can be replaced with whatever view
+         is needed to present your content, e.g. VideoView, SurfaceView,
+         TextureView, etc. -->
+
+    <!-- This FrameLayout insets its children based on system windows using
+         android:fitsSystemWindows. -->
+
+    <FrameLayout
+        android:layout_width="fill_parent"
+        android:layout_height="100dp"
+        android:background="#ffb4b4b4">
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/topText"
+            android:background="@drawable/new_game_text"
+            android:layout_gravity="center" />
+
+        <ImageButton
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/backButton"
+            android:background="@drawable/back_arrow_button"
+            android:layout_gravity="center_vertical|left"
+            android:layout_marginLeft="20dp" />
+    </FrameLayout>
+
+    <ImageView
+        android:layout_width="match_parent"
+        android:layout_height="100dp"
+        android:id="@+id/friendsBar"
+        android:background="@drawable/friends_bar" />
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/scrollView"
+        android:layout_weight="1" />
+
+    <ImageButton
+        android:layout_width="match_parent"
+        android:layout_height="100dp"
+        android:id="@+id/addFriendButton"
+        android:background="@drawable/add_friend_button"
+        android:baselineAlignBottom="false"
+        android:layout_gravity="bottom" />
+</LinearLayout>

@@ -16,6 +16,18 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+        <activity
+            android:name=".TitleActivity"
+            android:configChanges="orientation|keyboardHidden|screenSize"
+            android:label="@string/title_activity_title"
+            android:theme="@style/FullscreenTheme" >
+        </activity>
+        <activity
+            android:name=".NewGameActivity"
+            android:configChanges="orientation|keyboardHidden|screenSize"
+            android:label="@string/title_activity_new_game"
+            android:theme="@style/FullscreenTheme" >
+        </activity>
     </application>
 
 </manifest>
