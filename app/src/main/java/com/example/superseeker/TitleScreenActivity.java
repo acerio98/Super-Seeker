@@ -13,7 +13,7 @@ public class TitleScreenActivity extends Activity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_title_screen);
 
-        int b = 1;
+        
     }
 
     @Override
