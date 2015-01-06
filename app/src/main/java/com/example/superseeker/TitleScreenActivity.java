@@ -12,9 +12,9 @@ public class TitleScreenActivity extends Activity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_title_screen);
-    }
 
-        //I am having fun fun fun
+        int b = 1;
+    }
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
