@@ -9,8 +9,8 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.view.MotionEvent;
 import android.view.View;
-import android.widget.Button;
-import android.widget.ImageButton;
+import android.view.MenuItem;
+import android.support.v4.app.NavUtils;
 
 
 /**
@@ -19,7 +19,7 @@ import android.widget.ImageButton;
  *
  * @see SystemUiHider
  */
-public class NewGameActivity extends Activity implements View.OnClickListener{
+public class PlayGameActivity extends Activity {
     /**
      * Whether or not the system UI should be auto-hidden after
      * {@link #AUTO_HIDE_DELAY_MILLIS} milliseconds.
@@ -48,16 +48,12 @@ public class NewGameActivity extends Activity implements View.OnClickListener{
      */
     private SystemUiHider mSystemUiHider;
 
-    ImageButton backButton, addFriendButton;
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        setContentView(R.layout.activity_new_game);
-
-        backButton = (ImageButton)findViewById(R.id.backButton);
-        addFriendButton = (ImageButton)findViewById(R.id.addFriendButton);
+        setContentView(R.layout.activity_play_game);
+        setupActionBar();
 
         final View controlsView = findViewById(R.id.fullscreen_content_controls);
         final View contentView = findViewById(R.id.fullscreen_content);
@@ -119,16 +115,7 @@ public class NewGameActivity extends Activity implements View.OnClickListener{
         // Upon interacting with UI controls, delay any scheduled hide()
         // operations to prevent the jarring behavior of controls going away
         // while interacting with the UI.
-        //findViewById(R.id.dummy_button).setOnTouchListener(mDelayHideTouchListener);
-    }
-
-    public void onClick(View view){
-        if(view.getId()==R.id.backButton){
-            finish();
-        }
-        else if(view.getId()==R.id.addFriendButton){
-
-        }
+        findViewById(R.id.dummy_button).setOnTouchListener(mDelayHideTouchListener);
     }
 
     @Override
@@ -141,6 +128,35 @@ public class NewGameActivity extends Activity implements View.OnClickListener{
         delayedHide(100);
     }
 
+    /**
+     * Set up the {@link android.app.ActionBar}, if the API is available.
+     */
+    @TargetApi(Build.VERSION_CODES.HONEYCOMB)
+    private void setupActionBar() {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.HONEYCOMB) {
+            // Show the Up button in the action bar.
+            getActionBar().setDisplayHomeAsUpEnabled(true);
+        }
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        int id = item.getItemId();
+        if (id == android.R.id.home) {
+            // This ID represents the Home or Up button. In the case of this
+            // activity, the Up button is shown. Use NavUtils to allow users
+            // to navigate up one level in the application structure. For
+            // more details, see the Navigation pattern on Android Design:
+            //
+            // http://developer.android.com/design/patterns/navigation.html#up-vs-back
+            //
+            // TODO: If Settings has multiple levels, Up should navigate up
+            // that hierarchy.
+            NavUtils.navigateUpFromSameTask(this);
+            return true;
+        }
+        return super.onOptionsItemSelected(item);
+    }
 
     /**
      * Touch listener to use for in-layout UI controls to delay hiding the

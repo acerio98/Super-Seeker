@@ -42,7 +42,9 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:id="@+id/scrollView"
-        android:layout_weight="1" />
+        android:layout_weight="1" >
+
+    </ScrollView>
 
     <ImageButton
         android:layout_width="match_parent"
@@ -51,4 +53,5 @@
         android:background="@drawable/add_friend_button"
         android:baselineAlignBottom="false"
         android:layout_gravity="bottom" />
+
 </LinearLayout>
