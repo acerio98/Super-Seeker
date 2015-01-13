@@ -32,6 +32,7 @@ public class TitleScreenActivity extends Activity implements View.OnClickListene
     public void onClick(View view){
         if(view.getId()==R.id.newGameButton){
             Intent i = new Intent(TitleScreenActivity.this, NewGameActivity.class);
+            System.out.println("yay");
             startActivity(i);
         }
         else if(view.getId()==R.id.accountButton){

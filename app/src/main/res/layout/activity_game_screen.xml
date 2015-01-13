@@ -1,0 +1,51 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools" android:layout_width="match_parent"
+    android:layout_height="match_parent" android:background="#ff696969"
+    tools:context="com.example.superseeker.GameScreenActivity"
+    android:orientation="vertical">
+
+
+    <FrameLayout
+        android:layout_width="fill_parent"
+        android:layout_height="50dp"
+        android:background="@drawable/top_bar" >
+
+        <ImageButton
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:id="@+id/endButton"
+            android:background="@drawable/exit_button"
+            android:layout_gravity="center_vertical|right"
+            android:layout_marginRight="20dp" />
+
+        <Chronometer
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/timer"
+            android:layout_gravity="center"
+            android:text="00:00"
+            android:typeface="normal" />
+    </FrameLayout>
+
+    <ImageView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/imageView"
+        android:background="@drawable/radar"
+        android:layout_gravity="center_horizontal" />
+
+    <ImageView
+        android:layout_width="fill_parent"
+        android:layout_height="50dp"
+        android:id="@+id/imageView2"
+        android:background="@drawable/top_bar"
+        android:layout_gravity="center_horizontal" />
+
+    <ImageButton
+        android:layout_width="match_parent"
+        android:layout_height="fill_parent"
+        android:id="@+id/imageButton2"
+        android:background="@drawable/players_left_bar"
+        android:baselineAlignBottom="false"
+        android:layout_gravity="bottom" />
+</LinearLayout>

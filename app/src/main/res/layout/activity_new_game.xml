@@ -13,8 +13,8 @@
 
     <FrameLayout
         android:layout_width="fill_parent"
-        android:layout_height="100dp"
-        android:background="#ffb4b4b4">
+        android:layout_height="50dp"
+        android:background="@drawable/top_bar">
 
         <ImageView
             android:layout_width="wrap_content"
@@ -24,8 +24,8 @@
             android:layout_gravity="center" />
 
         <ImageButton
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_width="30dp"
+            android:layout_height="30dp"
             android:id="@+id/backButton"
             android:background="@drawable/back_arrow_button"
             android:layout_gravity="center_vertical|left"
@@ -34,7 +34,7 @@
 
     <ImageView
         android:layout_width="match_parent"
-        android:layout_height="100dp"
+        android:layout_height="50dp"
         android:id="@+id/friendsBar"
         android:background="@drawable/friends_bar" />
 
@@ -44,11 +44,80 @@
         android:id="@+id/scrollView"
         android:layout_weight="1" >
 
+        <LinearLayout
+            android:orientation="vertical"
+            android:layout_width="fill_parent"
+            android:layout_height="fill_parent">
+
+            <FrameLayout
+                android:layout_width="fill_parent"
+                android:layout_height="fill_parent"
+                android:background="@drawable/empty_friend_item">
+
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/playerImage1"
+                    android:background="@drawable/filler_friend_pic"
+                    android:layout_gravity="center_vertical|left"
+                    android:layout_marginLeft="10dp" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Michael Vanderlyn"
+                    android:id="@+id/name1"
+                    android:layout_gravity="center_vertical|left"
+                    android:layout_marginLeft="80dp"
+                    android:textSize="26dp"
+                    android:typeface="normal" />
+
+                <ImageButton
+                    android:layout_width="40dp"
+                    android:layout_height="40dp"
+                    android:id="@+id/friendButton1"
+                    android:background="@drawable/play_arrow_button"
+                    android:layout_gravity="center_vertical|right"
+                    android:layout_marginRight="10dp" />
+            </FrameLayout>
+
+            <FrameLayout
+                android:layout_width="fill_parent"
+                android:layout_height="fill_parent"
+                android:background="@drawable/empty_friend_item" >
+
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/playerImage2"
+                    android:background="@drawable/filler_friend_pic"
+                    android:layout_gravity="center_vertical|left"
+                    android:layout_marginLeft="10dp" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Austin Riopelle"
+                    android:id="@+id/name2"
+                    android:layout_gravity="center_vertical|left"
+                    android:layout_marginLeft="80dp"
+                    android:textSize="26dp"
+                    android:typeface="normal" />
+
+                <ImageButton
+                    android:layout_width="20dp"
+                    android:layout_height="20dp"
+                    android:id="@+id/friendButton2"
+                    android:background="@drawable/icon_button"
+                    android:layout_gravity="center_vertical|right"
+                    android:layout_marginRight="20dp" />
+            </FrameLayout>
+        </LinearLayout>
     </ScrollView>
 
     <ImageButton
         android:layout_width="match_parent"
-        android:layout_height="100dp"
+        android:layout_height="90dp"
         android:id="@+id/addFriendButton"
         android:background="@drawable/add_friend_button"
         android:baselineAlignBottom="false"

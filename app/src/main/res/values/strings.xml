@@ -10,5 +10,7 @@
     <string name="title_activity_new_game">NewGameActivity</string>
     <string name="title_activity_new_game_activity2">NewGameActivity2</string>
     <string name="title_activity_play_game">PlayGameActivity</string>
+    <string name="title_activity_game_screen">GameScreenActivity</string>
+    <string name="title_activity_end_game">EndGameActivity</string>
 
 </resources>
