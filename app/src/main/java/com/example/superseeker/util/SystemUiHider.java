@@ -93,6 +93,7 @@ public abstract class SystemUiHider {
      */
     public static SystemUiHider getInstance(Activity activity, View anchorView, int flags) {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.HONEYCOMB) {
+            System.out.println("~~~~~~"+anchorView);
             return new SystemUiHiderHoneycomb(activity, anchorView, flags);
         } else {
             return new SystemUiHiderBase(activity, anchorView, flags);

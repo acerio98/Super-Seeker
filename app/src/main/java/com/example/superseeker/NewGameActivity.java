@@ -8,6 +8,8 @@ import android.app.Activity;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.MotionEvent;
 import android.view.View;
 import android.widget.Button;
@@ -60,14 +62,16 @@ public class NewGameActivity extends Activity implements View.OnClickListener{
         backButton = (ImageButton)findViewById(R.id.backButton);
         addFriendButton = (ImageButton)findViewById(R.id.addFriendButton);
 
-        final View contentView = findViewById(R.id.fullscreen_content);
-        final View controlsView = findViewById(R.id.fullscreen_content_controls);
+        //System.out.println("YAYAYAU");
+        //final View contentView = findViewById(R.id.fullscreen_content);
+        //System.out.println("%+%+%"+contentView.toString());
+        //final View controlsView = findViewById(R.id.fullscreen_content_controls);
 
         // Set up an instance of SystemUiHider to control the system UI for
         // this activity.
-        mSystemUiHider = SystemUiHider.getInstance(this, contentView, HIDER_FLAGS);
-        mSystemUiHider.setup();
-        mSystemUiHider
+        //mSystemUiHider = SystemUiHider.getInstance(this, contentView, HIDER_FLAGS);
+        //mSystemUiHider.setup();
+        /*mSystemUiHider
                 .setOnVisibilityChangeListener(new SystemUiHider.OnVisibilityChangeListener() {
                     // Cached values.
                     int mControlsHeight;
@@ -103,10 +107,10 @@ public class NewGameActivity extends Activity implements View.OnClickListener{
                             delayedHide(AUTO_HIDE_DELAY_MILLIS);
                         }
                     }
-                });
+                });*/
 
         // Set up the user interaction to manually show or hide the system UI.
-        contentView.setOnClickListener(new View.OnClickListener() {
+        /*contentView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 if (TOGGLE_ON_CLICK) {
@@ -115,7 +119,7 @@ public class NewGameActivity extends Activity implements View.OnClickListener{
                     mSystemUiHider.show();
                 }
             }
-        });
+        });*/
 
         // Upon interacting with UI controls, delay any scheduled hide()
         // operations to prevent the jarring behavior of controls going away
@@ -133,6 +137,28 @@ public class NewGameActivity extends Activity implements View.OnClickListener{
     }
 
     @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        // Inflate the menu; this adds items to the action bar if it is present.
+        getMenuInflater().inflate(R.menu.menu_title_screen, menu);
+        return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        // Handle action bar item clicks here. The action bar will
+        // automatically handle clicks on the Home/Up button, so long
+        // as you specify a parent activity in AndroidManifest.xml.
+        int id = item.getItemId();
+
+        //noinspection SimplifiableIfStatement
+        if (id == R.id.action_settings) {
+            return true;
+        }
+        return super.onOptionsItemSelected(item);
+    }
+
+
+ /*   @Override
     protected void onPostCreate(Bundle savedInstanceState) {
         super.onPostCreate(savedInstanceState);
 
@@ -140,7 +166,7 @@ public class NewGameActivity extends Activity implements View.OnClickListener{
         // created, to briefly hint to the user that UI controls
         // are available.
         delayedHide(100);
-    }
+    }*/
 
 
     /**
@@ -148,7 +174,7 @@ public class NewGameActivity extends Activity implements View.OnClickListener{
      * system UI. This is to prevent the jarring behavior of controls going away
      * while interacting with activity UI.
      */
-    View.OnTouchListener mDelayHideTouchListener = new View.OnTouchListener() {
+/*    View.OnTouchListener mDelayHideTouchListener = new View.OnTouchListener() {
         @Override
         public boolean onTouch(View view, MotionEvent motionEvent) {
             if (AUTO_HIDE) {
@@ -156,22 +182,22 @@ public class NewGameActivity extends Activity implements View.OnClickListener{
             }
             return false;
         }
-    };
+    };*/
 
-    Handler mHideHandler = new Handler();
+/*    Handler mHideHandler = new Handler();
     Runnable mHideRunnable = new Runnable() {
         @Override
         public void run() {
             mSystemUiHider.hide();
         }
-    };
+    };*/
 
     /**
      * Schedules a call to hide() in [delay] milliseconds, canceling any
      * previously scheduled calls.
      */
-    private void delayedHide(int delayMillis) {
+ /*   private void delayedHide(int delayMillis) {
         mHideHandler.removeCallbacks(mHideRunnable);
         mHideHandler.postDelayed(mHideRunnable, delayMillis);
-    }
+    }*/
 }

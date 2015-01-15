@@ -52,6 +52,10 @@
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="com.example.superseeker.GameScreenActivity" />
         </activity>
+        <activity
+            android:name=".NewGame_Activity"
+            android:label="@string/title_activity_new_game_" >
+        </activity>
     </application>
 
 </manifest>
