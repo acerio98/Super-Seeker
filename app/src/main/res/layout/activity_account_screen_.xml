@@ -1,0 +1,112 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools" android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="com.example.superseeker.AccountScreen_Activity"
+    android:orientation="vertical">
+
+    <FrameLayout
+        android:layout_width="fill_parent"
+        android:layout_height="50dp"
+        android:background="@drawable/top_bar">
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/topText"
+            android:background="@drawable/account_text"
+            android:layout_gravity="center" />
+
+        <ImageButton
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:id="@+id/backButton"
+            android:background="@drawable/back_arrow_button"
+            android:layout_gravity="center_vertical|left"
+            android:layout_marginLeft="20dp" />
+
+        <ImageButton
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:id="@+id/editButton"
+            android:background="@drawable/edit_button"
+            android:layout_gravity="center_vertical|right"
+            android:layout_marginRight="20dp" />
+    </FrameLayout>
+
+    <ScrollView
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
+        android:id="@+id/scrollView" >
+
+        <LinearLayout
+            android:orientation="vertical"
+            android:layout_width="fill_parent"
+            android:layout_height="fill_parent">
+
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/friendIcon"
+                android:background="@drawable/big_face"
+                android:layout_marginTop="20dp"
+                android:layout_gravity="center_horizontal" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="name name"
+                android:id="@+id/nameText"
+                android:layout_marginTop="5dp"
+                android:textSize="20dp"
+                android:layout_gravity="center_horizontal" />
+
+            <FrameLayout
+                android:layout_width="fill_parent"
+                android:layout_height="fill_parent"
+                android:background="@drawable/about_bar"
+                android:layout_marginTop="35dp">
+
+                <TextView
+                    android:layout_width="200dp"
+                    android:layout_height="wrap_content"
+                    android:text=". . ."
+                    android:id="@+id/aboutText"
+                    android:layout_marginRight="10dp"
+                    android:layout_gravity="center_vertical|right"
+                    android:textSize="15dp" />
+            </FrameLayout>
+
+            <FrameLayout
+                android:layout_width="fill_parent"
+                android:layout_height="fill_parent"
+                android:background="@drawable/wins_bar">
+
+                <TextView
+                    android:layout_width="200dp"
+                    android:layout_height="wrap_content"
+                    android:text=". . ."
+                    android:id="@+id/winsText"
+                    android:layout_marginRight="10dp"
+                    android:layout_gravity="center_vertical|right"
+                    android:textSize="15dp" />
+            </FrameLayout>
+
+            <FrameLayout
+                android:layout_width="fill_parent"
+                android:layout_height="fill_parent"
+                android:background="@drawable/losses_bar">
+
+                <TextView
+                    android:layout_width="200dp"
+                    android:layout_height="wrap_content"
+                    android:text=". . ."
+                    android:id="@+id/lossesText"
+                    android:layout_marginRight="10dp"
+                    android:layout_gravity="center_vertical|right"
+                    android:textSize="15dp" />
+            </FrameLayout>
+
+        </LinearLayout>
+    </ScrollView>
+
+</LinearLayout>

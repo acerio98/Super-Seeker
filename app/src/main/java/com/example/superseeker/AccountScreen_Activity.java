@@ -1,45 +1,48 @@
 package com.example.superseeker;
 
 import android.app.Activity;
-import android.content.Intent;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.ImageButton;
+import android.widget.ImageView;
+import android.widget.TextView;
 
 
-public class NewGame_Activity extends Activity implements View.OnClickListener{
+public class AccountScreen_Activity extends Activity implements View.OnClickListener{
 
-    ImageButton backButton, addFriendButton, friendButton1;
+    ImageView friendIcon;
+    TextView nameText, aboutText, winsText, lossesText;
+    ImageButton backButton, editButton;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_new_game_);
+        setContentView(R.layout.activity_account_screen_);
+
+        friendIcon = (ImageView)findViewById(R.id.friendIcon);
+        nameText = (TextView)findViewById(R.id.nameText);
+        aboutText = (TextView)findViewById(R.id.aboutText);
+        winsText = (TextView)findViewById(R.id.winsText);
+        lossesText = (TextView)findViewById(R.id.lossesText);
 
         backButton = (ImageButton)findViewById(R.id.backButton);
         backButton.setOnClickListener(this);
-        addFriendButton = (ImageButton)findViewById(R.id.addFriendButton);
-        addFriendButton.setOnClickListener(this);
-        friendButton1 = (ImageButton)findViewById(R.id.friendButton1);
-        friendButton1.setOnClickListener(this);
+        editButton = (ImageButton)findViewById(R.id.editButton);
+        editButton.setOnClickListener(this);
     }
 
     public void onClick(View view){
         if(view.getId()==R.id.backButton){
-            finish();
-        }
-        else if(view.getId()==R.id.friendButton1){
-            Intent i = new Intent(NewGame_Activity.this, PlayGame_Activity.class);
-            startActivity(i);
+            //goto main menu
         }
     }
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
-        getMenuInflater().inflate(R.menu.menu_new_game_, menu);
+        getMenuInflater().inflate(R.menu.menu_account_screen_, menu);
         return true;
     }
 

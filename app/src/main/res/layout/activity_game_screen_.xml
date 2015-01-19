@@ -1,9 +1,8 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools" android:layout_width="match_parent"
-    android:layout_height="match_parent" android:background="#ff696969"
-    tools:context="com.example.superseeker.GameScreenActivity"
-    android:orientation="vertical">
-
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context="com.example.superseeker.GameScreen_Activity">
 
     <FrameLayout
         android:layout_width="fill_parent"
@@ -44,8 +43,9 @@
     <ImageButton
         android:layout_width="match_parent"
         android:layout_height="fill_parent"
-        android:id="@+id/imageButton2"
+        android:id="@+id/playersLeftButton"
         android:background="@drawable/players_left_bar"
         android:baselineAlignBottom="false"
         android:layout_gravity="bottom" />
+
 </LinearLayout>

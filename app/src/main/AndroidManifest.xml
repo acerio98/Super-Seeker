@@ -56,6 +56,66 @@
             android:name=".NewGame_Activity"
             android:label="@string/title_activity_new_game_" >
         </activity>
+        <activity
+            android:name=".PlayGame_Activity"
+            android:label="@string/title_activity_play_game_" >
+        </activity>
+        <activity
+            android:name=".GameScreen_Activity"
+            android:label="@string/title_activity_game_screen_" >
+        </activity>
+        <activity
+            android:name=".EndGame_Activity"
+            android:label="@string/title_activity_end_game_" >
+        </activity>
+        <activity
+            android:name=".AccountCreated_Activity"
+            android:label="@string/title_activity_account_created_" >
+        </activity>
+        <activity
+            android:name=".AccountScreen_Activity"
+            android:label="@string/title_activity_account_screen_" >
+        </activity>
+        <activity
+            android:name=".AddFriend_Activity"
+            android:label="@string/title_activity_add_friend_" >
+        </activity>
+        <activity
+            android:name=".Credits_Activity"
+            android:label="@string/title_activity_credits_" >
+        </activity>
+        <activity
+            android:name=".EditAccount_Activity"
+            android:label="@string/title_activity_edit_account_" >
+        </activity>
+        <activity
+            android:name=".Friend_Activity"
+            android:label="@string/title_activity_friend_" >
+        </activity>
+        <activity
+            android:name=".Invite_Activity"
+            android:label="@string/title_activity_invite_" >
+        </activity>
+        <activity
+            android:name=".NewAccount_Activity"
+            android:label="@string/title_activity_new_account_" >
+        </activity>
+        <activity
+            android:name=".Players_Activity"
+            android:label="@string/title_activity_players_" >
+        </activity>
+        <activity
+            android:name=".SignIn_Activity"
+            android:label="@string/title_activity_sign_in_" >
+        </activity>
+        <activity
+            android:name=".Lose_Activity"
+            android:label="@string/title_activity_lose_" >
+        </activity>
+        <activity
+            android:name=".Win_Activity"
+            android:label="@string/title_activity_win_" >
+        </activity>
     </application>
 
 </manifest>

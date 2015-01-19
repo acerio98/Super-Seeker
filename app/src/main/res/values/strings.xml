@@ -13,5 +13,20 @@
     <string name="title_activity_game_screen">GameScreenActivity</string>
     <string name="title_activity_end_game">EndGameActivity</string>
     <string name="title_activity_new_game_">NewGame_Activity</string>
+    <string name="title_activity_play_game_">PlayGame_Activity</string>
+    <string name="title_activity_game_screen_">GameScreen_Activity</string>
+    <string name="title_activity_end_game_">EndGame_Activity</string>
+    <string name="title_activity_account_created_">AccountCreated_Activity</string>
+    <string name="title_activity_account_screen_">AccountScreen_Activity</string>
+    <string name="title_activity_add_friend_">AddFriend_Activity</string>
+    <string name="title_activity_credits_">Credits_Activity</string>
+    <string name="title_activity_edit_account_">EditAccount_Activity</string>
+    <string name="title_activity_friend_">Friend_Activity</string>
+    <string name="title_activity_invite_">Invite_Activity</string>
+    <string name="title_activity_new_account_">NewAccount_Activity</string>
+    <string name="title_activity_players_">Players_Activity</string>
+    <string name="title_activity_sign_in_">SignIn_Activity</string>
+    <string name="title_activity_lose_">Lose_Activity</string>
+    <string name="title_activity_win_">Win_Activity</string>
 
 </resources>

@@ -9,29 +9,27 @@ import android.view.View;
 import android.widget.ImageButton;
 
 
-public class NewGame_Activity extends Activity implements View.OnClickListener{
+public class PlayGame_Activity extends Activity implements View.OnClickListener{
 
-    ImageButton backButton, addFriendButton, friendButton1;
+    ImageButton backButton, startGameButton;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_new_game_);
+        setContentView(R.layout.activity_play_game_);
 
         backButton = (ImageButton)findViewById(R.id.backButton);
         backButton.setOnClickListener(this);
-        addFriendButton = (ImageButton)findViewById(R.id.addFriendButton);
-        addFriendButton.setOnClickListener(this);
-        friendButton1 = (ImageButton)findViewById(R.id.friendButton1);
-        friendButton1.setOnClickListener(this);
+        startGameButton = (ImageButton)findViewById(R.id.startGameButton);
+        startGameButton.setOnClickListener(this);
     }
 
     public void onClick(View view){
         if(view.getId()==R.id.backButton){
             finish();
         }
-        else if(view.getId()==R.id.friendButton1){
-            Intent i = new Intent(NewGame_Activity.this, PlayGame_Activity.class);
+        else if(view.getId()==R.id.startGameButton){
+            Intent i = new Intent(PlayGame_Activity.this, GameScreen_Activity.class);
             startActivity(i);
         }
     }
@@ -39,7 +37,7 @@ public class NewGame_Activity extends Activity implements View.OnClickListener{
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
-        getMenuInflater().inflate(R.menu.menu_new_game_, menu);
+        getMenuInflater().inflate(R.menu.menu_play_game_, menu);
         return true;
     }
 
@@ -57,4 +55,6 @@ public class NewGame_Activity extends Activity implements View.OnClickListener{
 
         return super.onOptionsItemSelected(item);
     }
+
+
 }

@@ -12,7 +12,8 @@ import android.widget.ImageButton;
 
 public class TitleScreenActivity extends Activity implements View.OnClickListener{
 
-    ImageButton newGameButton, accountButton, creditsButton;
+    private ImageButton newGameButton, accountButton, creditsButton;
+    private static String signedInAs;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -31,18 +32,37 @@ public class TitleScreenActivity extends Activity implements View.OnClickListene
 
     public void onClick(View view){
         if(view.getId()==R.id.newGameButton){
-            Intent i = new Intent(TitleScreenActivity.this, NewGameActivity.class);
-            System.out.println("yay");
-            startActivity(i);
+            if(signedInAs.equals("")){
+                Intent i = new Intent(TitleScreenActivity.this, SignIn_Activity.class);
+                i.putExtra("destination", "game");
+                startActivity(i);
+            }
+            else{
+                Intent i = new Intent(TitleScreenActivity.this, NewGame_Activity.class);
+                i.putExtra("signedInAs", signedInAs);
+                startActivity(i);
+            }
         }
         else if(view.getId()==R.id.accountButton){
-            //Intent i = new Intent(TitleScreenActivity.this, NewGameActivity.class);
-            //startActivity(i);
+            if(signedInAs.equals("")) {
+                Intent i = new Intent(TitleScreenActivity.this, SignIn_Activity.class);
+                i.putExtra("destination", "account");
+                startActivity(i);
+            }
+            else{
+                Intent i = new Intent(TitleScreenActivity.this, AccountScreen_Activity.class);
+                i.putExtra("signedInAs", signedInAs);
+                startActivity(i);
+            }
         }
         else if(view.getId()==R.id.creditsButton){
-            ///Intent i = new Intent(TitleScreenActivity.this, NewGameActivity.class);
-            //startActivity(i);
+            Intent i = new Intent(TitleScreenActivity.this, Credits_Activity.class);
+            startActivity(i);
         }
+    }
+
+    public static void signIn(String username){
+        signedInAs = username;
     }
 
     @Override

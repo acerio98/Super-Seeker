@@ -1,15 +1,8 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools" android:layout_width="match_parent"
-    android:layout_height="match_parent" android:background="#ffffffff"
-    tools:context="com.example.superseeker.NewGameActivity"
+    android:layout_height="match_parent"
+    tools:context="com.example.superseeker.EndGame_Activity"
     android:orientation="vertical">
-
-    <!-- The primary full-screen view. This can be replaced with whatever view
-         is needed to present your content, e.g. VideoView, SurfaceView,
-         TextureView, etc. -->
-
-    <!-- This FrameLayout insets its children based on system windows using
-         android:fitsSystemWindows. -->
 
     <FrameLayout
         android:layout_width="fill_parent"
@@ -20,7 +13,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:id="@+id/topText"
-            android:background="@drawable/new_game_text"
+            android:background="@drawable/end_game_text"
             android:layout_gravity="center" />
 
         <ImageButton
@@ -35,7 +28,13 @@
     <ImageView
         android:layout_width="match_parent"
         android:layout_height="50dp"
-        android:id="@+id/friendsBar"
+        android:id="@+id/minutesRemainingBar"
+        android:background="@drawable/friends_bar" />
+
+    <ImageView
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:id="@+id/playersRemainingBar"
         android:background="@drawable/friends_bar" />
 
     <ScrollView
@@ -72,13 +71,6 @@
                     android:textSize="26dp"
                     android:typeface="normal" />
 
-                <ImageButton
-                    android:layout_width="40dp"
-                    android:layout_height="40dp"
-                    android:id="@+id/friendButton1"
-                    android:background="@drawable/play_arrow_button"
-                    android:layout_gravity="center_vertical|right"
-                    android:layout_marginRight="10dp" />
             </FrameLayout>
 
             <FrameLayout
@@ -104,13 +96,6 @@
                     android:textSize="26dp"
                     android:typeface="normal" />
 
-                <ImageButton
-                    android:layout_width="20dp"
-                    android:layout_height="20dp"
-                    android:id="@+id/friendButton2"
-                    android:background="@drawable/icon_button"
-                    android:layout_gravity="center_vertical|right"
-                    android:layout_marginRight="20dp" />
             </FrameLayout>
         </LinearLayout>
     </ScrollView>
@@ -118,8 +103,8 @@
     <ImageButton
         android:layout_width="match_parent"
         android:layout_height="90dp"
-        android:id="@+id/addFriendButton"
-        android:background="@drawable/add_friend_button"
+        android:id="@+id/forfeitButton"
+        android:background="@drawable/forfeit_bar"
         android:baselineAlignBottom="false"
         android:layout_gravity="bottom" />
 

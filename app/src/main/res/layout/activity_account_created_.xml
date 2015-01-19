@@ -1,0 +1,64 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools" android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="com.example.superseeker.AccountCreated_Activity"
+    android:orientation="vertical">
+
+    <FrameLayout
+        android:layout_width="fill_parent"
+        android:layout_height="50dp"
+        android:background="@drawable/top_bar">
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/topText"
+            android:background="@drawable/new_account_text"
+            android:layout_gravity="center" />
+
+    </FrameLayout>
+
+    <ImageView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/friendIcon"
+        android:background="@drawable/big_face"
+        android:layout_marginTop="20dp"
+        android:layout_gravity="center_horizontal" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="name name"
+        android:id="@+id/nameText"
+        android:layout_marginTop="5dp"
+        android:layout_gravity="center_horizontal"
+        android:textSize="20dp" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Your account has been created!"
+        android:id="@+id/message"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginTop="50dp"
+        android:textSize="25dp"
+        android:layout_marginRight="35dp"
+        android:layout_marginLeft="35dp"
+        android:password="false"
+        android:textAlignment="center"
+        android:textStyle="italic"
+        android:gravity="center_vertical|center_horizontal" />
+
+    <Space
+        android:layout_width="20px"
+        android:layout_height="20px"
+        android:layout_weight="1" />
+
+    <ImageButton
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/mainMenuButton"
+        android:background="@drawable/main_menu_button" />
+
+</LinearLayout>
