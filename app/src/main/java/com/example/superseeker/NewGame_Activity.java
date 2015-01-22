@@ -1,5 +1,9 @@
 package com.example.superseeker;
 
+import com.google.android.gms.*;
+import com.google.android.gms.common.ConnectionResult;
+import com.google.android.gms.common.api.GoogleApiClient;
+import com.google.example.games.basegameutils.BaseGameUtils;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
@@ -9,7 +13,13 @@ import android.view.View;
 import android.widget.ImageButton;
 
 
-public class NewGame_Activity extends Activity implements View.OnClickListener{
+public class NewGame_Activity extends Activity implements View.OnClickListener,
+        GoogleApiClient.ConnectionCallbacks, GoogleApiClient.OnConnectionFailedListener{
+
+    private static int RC_SIGN_IN = 9001;
+    private boolean mResolvingConnectionFailure = false;
+    private boolean mAutoStartSignInFlow = true;
+    private boolean mSignInClicked = false;
 
     ImageButton backButton, addFriendButton, friendButton1;
 
@@ -34,6 +44,34 @@ public class NewGame_Activity extends Activity implements View.OnClickListener{
             Intent i = new Intent(NewGame_Activity.this, PlayGame_Activity.class);
             startActivity(i);
         }
+    }
+
+    @Override
+    public void onConnectionFailed(ConnectionResult connectionResult){
+        if(mResolvingConnectionFailure){
+            //Already resolving
+            return;
+        }
+
+        // If the sign in button was clicked or if auto sign-in is enabled,
+        // launch the sign-in flow
+        if (mSignInClicked || mAutoStartSignInFlow) {
+            mAutoStartSignInFlow = false;
+            mSignInClicked = false;
+            mResolvingConnectionFailure = true;
+
+            // Attempt to resolve the connection failure using BaseGameUtils.
+            // The R.string.signin_other_error value should reference a generic
+            // error string in your strings.xml file, such as "There was
+            // an issue with sign in, please try again later."
+            if (!BaseGameUtils.resolveConnectionFailure(this,
+                    mGoogleApiClient, connectionResult,
+                    RC_SIGN_IN, R.string.signin_other_error)) {
+                mResolvingConnectionFailure = false;
+            }
+        }
+
+        // Put code here to display the sign-in button
     }
 
     @Override

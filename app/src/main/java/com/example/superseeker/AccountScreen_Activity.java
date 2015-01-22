@@ -1,6 +1,7 @@
 package com.example.superseeker;
 
 import android.app.Activity;
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -36,6 +37,12 @@ public class AccountScreen_Activity extends Activity implements View.OnClickList
     public void onClick(View view){
         if(view.getId()==R.id.backButton){
             //goto main menu
+        }
+        else if (view.getId()==R.id.editButton){
+            String iAmSignedInAs = getIntent().getStringExtra("signedInAs");
+            Intent i = new Intent(AccountScreen_Activity.this, EditAccount_Activity.class);
+            i.putExtra("signedInAs", iAmSignedInAs);
+            startActivity(i);
         }
     }
 

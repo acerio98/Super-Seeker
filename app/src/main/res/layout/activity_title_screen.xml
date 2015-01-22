@@ -30,21 +30,35 @@
 
         <ImageButton
             android:layout_width="match_parent"
-            android:layout_height="100dp"
+            android:layout_height="wrap_content"
             android:id="@+id/newGameButton"
             android:background="@drawable/new_game_button" />
 
         <ImageButton
             android:layout_width="match_parent"
-            android:layout_height="100dp"
+            android:layout_height="wrap_content"
             android:id="@+id/accountButton"
             android:background="@drawable/account_button" />
 
         <ImageButton
             android:layout_width="match_parent"
-            android:layout_height="100dp"
+            android:layout_height="wrap_content"
             android:id="@+id/creditsButton"
             android:background="@drawable/credits_button" />
+
+        <com.google.android.gms.common.SignInButton
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:text="SIGN IN"
+            android:id="@+id/signInButton" />
+
+        <Button
+            android:layout_width="fill_parent"
+            android:layout_height="20dp"
+            android:text="SIGN OUT"
+            android:id="@+id/signOutButton"
+            android:layout_weight="1"
+            android:visibility="gone"/>
 
     </LinearLayout>
 

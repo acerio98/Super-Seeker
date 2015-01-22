@@ -4,14 +4,25 @@ import android.app.Activity;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.EditText;
+import android.widget.ImageButton;
+import android.widget.ImageView;
 
 
 public class EditAccount_Activity extends Activity {
+
+    ImageView friendIcon;
+    ImageButton cancelButton, okButton, editPicButton;
+    EditText nameField, emailField, aboutField;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_edit_account_);
+
+        friendIcon = (ImageView)findViewById(R.id.friendIcon);
+        cancelButton = (ImageButton)findViewById(R.id.backButton);
+
     }
 
 
