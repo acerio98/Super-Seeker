@@ -2,80 +2,68 @@
     xmlns:tools="http://schemas.android.com/tools" android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context="com.example.superseeker.SignIn_Activity"
-    android:orientation="vertical">
+    android:orientation="vertical"
+    android:background="#ff494949">
 
     <FrameLayout
         android:layout_width="fill_parent"
         android:layout_height="50dp"
         android:background="@drawable/top_bar">
 
-        <ImageView
+        <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:id="@+id/topText"
-            android:background="@drawable/sign_in_text"
-            android:layout_gravity="center" />
+            android:text="Sign In"
+            android:id="@+id/textView"
+            android:layout_gravity="center"
+            android:textColor="#ffa7e1f5"
+            android:textSize="25dp" />
 
-        <ImageButton
-            android:layout_width="30dp"
-            android:layout_height="30dp"
-            android:id="@+id/backButton"
-            android:background="@drawable/back_arrow_button"
-            android:layout_gravity="center_vertical|left"
-            android:layout_marginLeft="20dp" />
     </FrameLayout>
 
-    <FrameLayout
-        android:layout_width="fill_parent"
-        android:layout_height="wrap_content">
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:text="Welcome to"
+        android:id="@+id/textView2"
+        android:layout_marginLeft="50dp"
+        android:layout_marginTop="30dp"
+        android:textSize="35dp"
+        android:textColor="#ffffffff" />
 
-        <ImageView
-            android:layout_width="fill_parent"
-            android:layout_height="wrap_content"
-            android:id="@+id/usernameView"
-            android:background="@drawable/username_bar" />
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:text="Super Seeker."
+        android:id="@+id/textView4"
+        android:textSize="40dp"
+        android:layout_marginLeft="50dp"
+        android:textStyle="italic"
+        android:textColor="#ffffffff" />
 
-        <EditText
-            android:layout_width="160dp"
-            android:layout_height="wrap_content"
-            android:id="@+id/usernameField"
-            android:layout_gravity="center_vertical|right"
-            android:layout_marginRight="10dp" />
-    </FrameLayout>
-
-    <FrameLayout
-        android:layout_width="fill_parent"
-        android:layout_height="wrap_content">
-
-        <ImageView
-            android:layout_width="fill_parent"
-            android:layout_height="wrap_content"
-            android:id="@+id/passwordView"
-            android:background="@drawable/password_bar" />
-
-        <EditText
-            android:layout_width="160dp"
-            android:layout_height="wrap_content"
-            android:id="@+id/passwordField"
-            android:layout_gravity="center_vertical|right"
-            android:layout_marginRight="10dp" />
-    </FrameLayout>
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceMedium"
+        android:text="Please sign in below."
+        android:id="@+id/textView3"
+        android:layout_marginLeft="50dp"
+        android:layout_marginTop="20dp"
+        android:textSize="23dp"
+        android:textColor="#ffbebebe" />
 
     <Space
         android:layout_width="20px"
         android:layout_height="20px"
         android:layout_weight="1" />
 
-    <ImageButton
+    <com.google.android.gms.common.SignInButton
+        android:id="@+id/button_sign_in"
         android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
-        android:id="@+id/signInButton"
-        android:background="@drawable/sign_in_button" />
+        android:layout_height="80dp"
+        />
 
-    <ImageButton
-        android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
-        android:id="@+id/createAccountButton"
-        android:background="@drawable/create_account_button" />
 
 </LinearLayout>

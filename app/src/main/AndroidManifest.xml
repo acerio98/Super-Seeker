@@ -17,42 +17,6 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".NewGameActivity"
-            android:configChanges="orientation|keyboardHidden|screenSize"
-            android:label="@string/title_activity_new_game"
-            android:theme="@style/FullscreenTheme" >
-        </activity>
-        <activity
-            android:name=".PlayGameActivity"
-            android:configChanges="orientation|keyboardHidden|screenSize"
-            android:label="@string/title_activity_play_game"
-            android:parentActivityName=".NewGameActivity"
-            android:theme="@style/FullscreenTheme" >
-            <meta-data
-                android:name="android.support.PARENT_ACTIVITY"
-                android:value="com.example.superseeker.NewGameActivity" />
-        </activity>
-        <activity
-            android:name=".GameScreenActivity"
-            android:configChanges="orientation|keyboardHidden|screenSize"
-            android:label="@string/title_activity_game_screen"
-            android:parentActivityName=".PlayGameActivity"
-            android:theme="@style/FullscreenTheme" >
-            <meta-data
-                android:name="android.support.PARENT_ACTIVITY"
-                android:value="com.example.superseeker.PlayGameActivity" />
-        </activity>
-        <activity
-            android:name=".EndGameActivity"
-            android:configChanges="orientation|keyboardHidden|screenSize"
-            android:label="@string/title_activity_end_game"
-            android:parentActivityName=".GameScreenActivity"
-            android:theme="@style/FullscreenTheme" >
-            <meta-data
-                android:name="android.support.PARENT_ACTIVITY"
-                android:value="com.example.superseeker.GameScreenActivity" />
-        </activity>
-        <activity
             android:name=".NewGame_Activity"
             android:label="@string/title_activity_new_game_" >
         </activity>

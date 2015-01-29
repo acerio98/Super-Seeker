@@ -20,6 +20,7 @@ import com.google.android.gms.plus.Plus;
 import com.google.example.games.basegameutils.BaseGameUtils;
 import android.app.Activity;
 import android.content.Intent;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.os.Handler;
 import android.util.Log;
@@ -30,6 +31,7 @@ import android.view.View;
 import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.ImageButton;
+import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -46,24 +48,21 @@ public class TitleScreenActivity extends Activity implements GoogleApiClient.Con
         RoomStatusUpdateListener, RoomUpdateListener, OnInvitationReceivedListener {
 
     private ImageButton newGameButton, accountButton, creditsButton;
-    private Button signInButton, signOutButton;
-    private static String signedInAs;
     private GoogleApiClient mGoogleApiClient;
 
-    private static int RC_SIGN_IN = 9001;
     private boolean mResolvingConnectionFailure = false;
     private boolean mAutoStartSignInFlow = true;
     private boolean mSignInClicked = false;
 
-    boolean mExplicitSignOut = false;
-    boolean mInSignInFlow = false;
-    boolean mPlaying = false;
-    boolean mMultiplayer = false;
 
     ArrayList<Participant> mParticipants = null;
+    Map<String, Boolean> mParticipantInfo = new HashMap<>();
 
     // My participant ID in the currently active game
     String mMyId = null;
+
+    // The participant ID of the host of the currently active game
+    String mHostId = null;
 
     String mIncomingInvitationId = null;
 
@@ -81,7 +80,6 @@ public class TitleScreenActivity extends Activity implements GoogleApiClient.Con
 
     final static String TAG = "SuperSeeker";
 
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -96,36 +94,22 @@ public class TitleScreenActivity extends Activity implements GoogleApiClient.Con
                 .build();
 
 
-        newGameButton = (ImageButton)findViewById(R.id.newGameButton);
-        newGameButton.setOnClickListener(this);
-
-        accountButton = (ImageButton)findViewById(R.id.accountButton);
-        accountButton.setOnClickListener(this);
-
-        creditsButton = (ImageButton)findViewById(R.id.creditsButton);
-        creditsButton.setOnClickListener(this);
-
-        signInButton = (Button)findViewById(R.id.signInButton);
-        signInButton.setOnClickListener(this);
-
-        signOutButton = (Button)findViewById(R.id.signOutButton);
-        signOutButton.setOnClickListener(this);
+        // set up a click listener for everything we care about
+        for (int id : CLICKABLES) {
+            findViewById(id).setOnClickListener(this);
+        }
     }
 
     public void onClick(View view){
         Intent i;
         switch(view.getId()){
-            case R.id.newGameButton:
-                resetGameVars();
-                startGame(false);
-                break;
-            case R.id.signInButton:
+            case R.id.button_sign_in:
                 //start the sign-in flow
                 Log.d(TAG, "Sign-in button clicked");
                 mSignInClicked = true;
                 mGoogleApiClient.connect();
                 break;
-            case R.id.signOutButton:
+            case R.id.button_sign_out:
                 //sign out.
                 Log.d(TAG, "Sign-out button clicked");
                 mSignInClicked = false;
@@ -133,17 +117,17 @@ public class TitleScreenActivity extends Activity implements GoogleApiClient.Con
                 mGoogleApiClient.disconnect();
                 switchToScreen(R.id.screen_sign_in);
                 break;
-            case R.id.invitePlayersButton:
+            case R.id.button_invite_players:
                 i = Games.RealTimeMultiplayer.getSelectOpponentsIntent(mGoogleApiClient, 1, 3);
-                switchToScreen(R.id.waitScreen);
+                switchToScreen(R.id.screen_wait);
                 startActivityForResult(i, RC_SELECT_PLAYERS);
                 break;
-            case R.id.seeInvitationsButton:
+            case R.id.button_see_invitations:
                 i = Games.Invitations.getInvitationInboxIntent(mGoogleApiClient);
-                switchToScreen(R.id.waitScreen);
+                switchToScreen(R.id.screen_wait);
                 startActivityForResult(i, RC_INVITATION_INBOX);
                 break;
-            case R.id.acceptPopupInvitationButton:
+            case R.id.button_accept_popup_invitation:
                 //accept on the invitation popup )from OnInvitationReceivedListener)
                 acceptInviteToRoom(mIncomingInvitationId);
                 mIncomingInvitationId = null;
@@ -165,26 +149,27 @@ public class TitleScreenActivity extends Activity implements GoogleApiClient.Con
         final ArrayList<String> invitees = data.getStringArrayListExtra(Games.EXTRA_PLAYER_IDS);
         Log.d(TAG, "Number of Invitees: "+invitees.size());
 
-        Bundle autoMatchCriteria = null;
-        int minAutoMatchPlayers = data.getIntExtra(Multiplayer.EXTRA_MIN_AUTOMATCH_PLAYERS, 0);
-        int maxAutoMatchPlayers = data.getIntExtra(Multiplayer.EXTRA_MAX_AUTOMATCH_PLAYERS, 0);
-        if(minAutoMatchPlayers > 0 || maxAutoMatchPlayers > 0){
-            autoMatchCriteria = RoomConfig.createAutoMatchCriteria(
-                    minAutoMatchPlayers, maxAutoMatchPlayers, 0);
-            Log.d(TAG, "Automatch critera: "+ autoMatchCriteria);
-        }
+//        Bundle autoMatchCriteria = null;
+//        int minAutoMatchPlayers = data.getIntExtra(Multiplayer.EXTRA_MIN_AUTOMATCH_PLAYERS, 0);
+//        int maxAutoMatchPlayers = data.getIntExtra(Multiplayer.EXTRA_MAX_AUTOMATCH_PLAYERS, 0);
+//        if(minAutoMatchPlayers > 0 || maxAutoMatchPlayers > 0){
+//            autoMatchCriteria = RoomConfig.createAutoMatchCriteria(
+//                    minAutoMatchPlayers, maxAutoMatchPlayers, 0);
+//            Log.d(TAG, "Automatch critera: "+ autoMatchCriteria);
+//        }
 
         Log.d(TAG, "Creating room...");
         RoomConfig.Builder rtmConfigBuilder = RoomConfig.builder(this);
         rtmConfigBuilder.addPlayersToInvite(invitees);
         rtmConfigBuilder.setMessageReceivedListener(this);
         rtmConfigBuilder.setRoomStatusUpdateListener(this);
-        if(autoMatchCriteria != null){
-            rtmConfigBuilder.setAutoMatchCriteria(autoMatchCriteria);
-        }
+//        if(autoMatchCriteria != null){
+//            rtmConfigBuilder.setAutoMatchCriteria(autoMatchCriteria);
+//        }
         switchToScreen(R.id.screen_wait);
         keepScreenOn();
         resetGameVars();
+
         Games.RealTimeMultiplayer.create(mGoogleApiClient, rtmConfigBuilder.build());
         Log.d(TAG, "Room created, waiting for it to be ready...");
     }
@@ -213,6 +198,7 @@ public class TitleScreenActivity extends Activity implements GoogleApiClient.Con
         switchToScreen(R.id.screen_wait);
         keepScreenOn();
         resetGameVars();
+
         Games.RealTimeMultiplayer.join(mGoogleApiClient, roomConfigBuilder.build());
     }
 
@@ -358,11 +344,24 @@ public class TitleScreenActivity extends Activity implements GoogleApiClient.Con
 
         mRoomId = room.getRoomId();
         mParticipants = room.getParticipants();
+        for(Participant p : mParticipants){
+            mParticipantInfo.put(p.getDisplayName(), true); //name, inGame
+        }
         mMyId = room.getParticipantId(Games.Players.getCurrentPlayerId(mGoogleApiClient));
+        mHostId = room.getCreatorId();
+
+        if(!mMyId.equals(mHostId)) {
+            ((TextView) findViewById(R.id.instructions)).setText(R.string.player_instructions);
+            ((TextView) findViewById(R.id.hidingInstructions)).setText(R.string.hiding_player_instructions);
+        }
 
         Log.d(TAG, "Room ID: "+mRoomId);
         Log.d(TAG, "My ID: "+ mMyId);
         Log.d(TAG, "~~ CONNECTED TO ROOM ~~");
+        if(mMyId.equals(mHostId))
+            Log.d(TAG, "I will be seeking!");
+        else
+            Log.d(TAG, "I will be hiding.");
     }
 
     //from tutorial callbacks section
@@ -481,30 +480,51 @@ public class TitleScreenActivity extends Activity implements GoogleApiClient.Con
             mParticipants = room.getParticipants();
         }
         if(mParticipants != null){
-            updatePeerScoresDisplay();
+            if(mMyId.equals(mHostId))
+                updatePeerDistanceDisplayForHost();
+            else
+                updatePeerDistanceDisplayForPlayer();
         }
     }
 
 ////// GAME LOGIC SECTION ////////////
 
+    int mSecondsLeft = -1; //seconds
+    final static int HIDING_PERIOD_DURATION = 180;
+    final static int GAME_DURATION = 600; //seconds
+    int mPlayersFound = 0;
+
     // Reset game variables in preparation for a new game.
     void resetGameVars() {
         mSecondsLeft = GAME_DURATION;
-        mScore = 0;
-        mParticipantScore.clear();
+        mPlayersFound = 0;
+        mParticipantLocations.clear();
         mFinishedParticipants.clear();
     }
 
     // Start the gameplay phase of the game.
-    void startGame(boolean multiplayer) {
-        mMultiplayer = multiplayer;
+    void startGame() {
+        // DO GAME LOGIC every second to update the game.
+        final Handler h = new Handler();
+        h.postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                if (mSecondsLeft <= ( GAME_DURATION - HIDING_PERIOD_DURATION ) ) {
+                    startRealGame();
+                    return;
+                }
+                hidingTick();
+                h.postDelayed(this, 1000);
+            }
+        }, 1000);
+    }
+
+    void startRealGame(){
         updateScoreDisplay();
         broadcastScore(false);
         switchToScreen(R.id.screen_game);
 
-        findViewById(R.id.button_click_me).setVisibility(View.VISIBLE);
-
-        // run the gameTick() method every second to update the game.
+        // DO GAME LOGIC every second to update the game.
         final Handler h = new Handler();
         h.postDelayed(new Runnable() {
             @Override
@@ -517,10 +537,37 @@ public class TitleScreenActivity extends Activity implements GoogleApiClient.Con
         }, 1000);
     }
 
+    // Hiding tick -- update countdown
+    void hidingTick() {
+        if (mSecondsLeft > 0)
+            --mSecondsLeft;
+
+        // update countdown
+        ((TextView) findViewById(R.id.hideCountdown)).setText("0:" +
+                (mSecondsLeft < 10 ? "0" : "") + String.valueOf(mSecondsLeft));
+    }
+
+    // Game tick -- update countdown, check if game ended.
+    void gameTick() {
+        if (mSecondsLeft > 0)
+            --mSecondsLeft;
+
+        // update countdown
+        ((TextView) findViewById(R.id.countdown)).setText("0:" +
+                (mSecondsLeft < 10 ? "0" : "") + String.valueOf(mSecondsLeft));
+
+        if (mSecondsLeft <= 0) {
+            // finish game
+            ((TextView)findViewById(R.id.instructions)).setText("Time is up!\nGAME OVER!!");
+            ((TextView)findViewById(R.id.instructions)).setTextColor(R.color.DistanceColor10);//just a nice, assertive color
+            broadcastScore(true);
+        }
+    }
+
     //////// COMMUNICATIONS SECTION ////////
 
     //Scores of the other participants.
-    Map<String, Integer> mParticipantScore = new HashMap<>();
+    Map<String, Integer> mParticipantLocations = new HashMap<>();
 
     //Participants who sent their final scores.
     Set<String> mFinishedParticipants = new HashSet<>();
@@ -534,15 +581,13 @@ public class TitleScreenActivity extends Activity implements GoogleApiClient.Con
         Log.d(TAG, "Message received: "+ (char)buf[0] + "/" + (int)buf[1]);
 
         if( buf[0] == 'F' || buf[0] == 'U'){
-            int existingScore = mParticipantScore.containsKey(sender) ?
-                    mParticipantScore.get(sender);
-            int thisScore = (int)buf[1];
-            if(thisScore > existingScore){
-                //assuming that we can't lose points
-                mParticipantScore.put(sender, thisScore);
-            }
+            int thisDistance = (int)buf[1];
+            mParticipantLocations.put(sender, thisDistance);
 
-            updatePeerScoresDisplay();
+            if(mMyId.equals(mHostId))
+                updatePeerDistanceDisplayForHost();
+            else
+                updatePeerDistanceDisplayForPlayer();
 
             if((char)buf[0] == 'F'){
                 mFinishedParticipants.add(rtm.getSenderParticipantId());
@@ -550,11 +595,168 @@ public class TitleScreenActivity extends Activity implements GoogleApiClient.Con
         }
     }
 
-    void broadcastScore(boolean finalScore){
-        if(!mMultiplayer)
-            return; //playing single-player DO NOT NEED!!
+    // Broadcast my score to everybody else.
+    void broadcastScore(boolean finalScore) {
 
-        mMsgBuf
+        // First byte in message indicates whether it's a final score or not
+        mMsgBuf[0] = (byte) (finalScore ? 'F' : 'U');
+
+        // Second byte is the score.
+        mMsgBuf[1] = (byte) mPlayersFound; //************ NEED TO DIFFERENTIATE BETWEEN HOST AND OTHERS
+
+        // Send to every other participant.
+        for (Participant p : mParticipants) {
+            if (p.getParticipantId().equals(mMyId))
+                continue;
+            if (p.getStatus() != Participant.STATUS_JOINED)
+                continue;
+            if (finalScore) {
+                // final score notification must be sent via reliable message
+                Games.RealTimeMultiplayer.sendReliableMessage(mGoogleApiClient, null, mMsgBuf,
+                        mRoomId, p.getParticipantId());
+            } else {
+                // it's an interim score notification, so we can use unreliable
+                Games.RealTimeMultiplayer.sendUnreliableMessage(mGoogleApiClient, mMsgBuf, mRoomId,
+                        p.getParticipantId());
+            }
+        }
+    }
+
+    /*
+     * UI SECTION. Methods that implement the game's UI.
+     */
+
+    // This array lists everything that's clickable, so we can install click
+    // event handlers.
+    final static int[] CLICKABLES = {
+            R.id.button_accept_popup_invitation, R.id.button_invite_players,
+            R.id.button_see_invitations, R.id.button_sign_in,
+            R.id.button_sign_out
+    };
+
+    // This array lists all the individual screens our game has.
+    final static int[] SCREENS = {
+            R.id.screen_game, R.id.screen_main, R.id.screen_sign_in,
+            R.id.screen_wait
+    };
+    int mCurScreen = -1;
+
+    void switchToScreen(int screenId) {
+        // make the requested screen visible; hide all others.
+        for (int id : SCREENS) {
+            findViewById(id).setVisibility(screenId == id ? View.VISIBLE : View.GONE);
+        }
+        mCurScreen = screenId;
+
+        // should we show the invitation popup?
+        boolean showInvPopup;
+        if (mIncomingInvitationId == null) {
+            // no invitation, so no popup
+            showInvPopup = false;
+        } else {
+            // if in multiplayer, only show invitation on main screen
+            showInvPopup = (mCurScreen == R.id.screen_main);
+        }
+        findViewById(R.id.invitation_popup).setVisibility(showInvPopup ? View.VISIBLE : View.GONE);
+    }
+
+    void switchToMainScreen() {
+        if (mGoogleApiClient != null && mGoogleApiClient.isConnected()) {
+            switchToScreen(R.id.screen_main);
+        }
+        else {
+            switchToScreen(R.id.screen_sign_in);
+        }
+    }
+
+    // updates the label that shows my score
+    void updateScoreDisplay() {
+        ((TextView) findViewById(R.id.my_score)).setText(mPlayersFound + "/" + mParticipants.size());
+    }
+
+    // updates the screen with the scores from the players
+    void updatePeerDistanceDisplayForHost() {
+        int[] names = {
+                R.id.p2name, R.id.p3name, R.id.p4name, R.id.p5name, R.id.p6name
+        };
+        int[] colorBoxes = {
+                R.id.p2color, R.id.p3color, R.id.p4color, R.id.p5color, R.id.p6color
+        };
+        int i = 0;
+
+        if (mRoomId != null) {
+            for (Participant p : mParticipants) {
+                String pid = p.getParticipantId();
+                if (pid.equals(mMyId))
+                    continue;
+                if (p.getStatus() != Participant.STATUS_JOINED)
+                    continue;
+                int distance = mParticipantLocations.containsKey(pid) ? mParticipantLocations.get(pid) : Integer.MAX_VALUE;
+
+                ((TextView) findViewById(names[i])).setText(p.getDisplayName());
+
+                //maximum 'red' distance is 315 yards
+                //minimum 'no show' distance is 15 yards
+
+                int colorToUse;
+                if(distance<=15)
+                    colorToUse = R.color.DistanceColorOff;
+                else {
+                    int adjustedDistanceZone = (distance - 15) / 30;
+                    switch (adjustedDistanceZone) {
+                        case 0: colorToUse = R.color.DistanceColor0; break;
+                        case 1: colorToUse = R.color.DistanceColor1; break;
+                        case 2: colorToUse = R.color.DistanceColor2; break;
+                        case 3: colorToUse = R.color.DistanceColor3; break;
+                        case 4: colorToUse = R.color.DistanceColor4; break;
+                        case 5: colorToUse = R.color.DistanceColor5; break;
+                        case 6: colorToUse = R.color.DistanceColor6; break;
+                        case 7: colorToUse = R.color.DistanceColor7; break;
+                        case 8: colorToUse = R.color.DistanceColor8; break;
+                        case 9: colorToUse = R.color.DistanceColor9; break;
+                        default: colorToUse = R.color.DistanceColor10; break;
+                    }
+                }
+
+                if(distance < 2) //you basically found them, yay
+                {
+                    ((TextView)findViewById(names[i])).setText("FOUND ME!");
+                    //****************something else???
+                }
+
+                findViewById(colorBoxes[i]).setBackgroundColor(colorToUse);
+                ++i;
+            }
+        }
+
+        for (; i < names.length; ++i) {
+            ((TextView) findViewById(names[i])).setText("");
+        }
+    }
+
+    // updates the screen with the info for the player
+    void updatePeerDistanceDisplayForPlayer() {
+        if (mRoomId != null) {
+            //COULD BE CLEANED UP
+            for (Participant p : mParticipants) {
+                String pid = p.getParticipantId();
+                if (pid.equals(mMyId))
+                    continue;
+                if (p.getStatus() != Participant.STATUS_JOINED)
+                    continue;
+                if (!pid.equals(mHostId))
+                    continue;
+                //this person is the host
+                int seekerDistance = mParticipantLocations.containsKey(pid) ? mParticipantLocations.get(pid) : Integer.MAX_VALUE;
+
+                if(seekerDistance < 2) //I am basically found
+                {
+                    //*****************set some text to YOU'VE BEEN FOUND!
+                    broadcastScore(true);//leave game
+                }
+
+            }
+        }
     }
 
     //////////////////////////////////////////////////////////////////////////
@@ -576,7 +778,7 @@ public class TitleScreenActivity extends Activity implements GoogleApiClient.Con
                 if(resultCode == Activity.RESULT_OK){
                     //start playing
                     Log.d(TAG, "Starting game...");
-                    startGame(true);
+                    startGame();
                 }
                 else if(resultCode == GamesActivityResultCodes.RESULT_LEFT_ROOM){
                     leaveRoom();
